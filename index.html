@@ -15,7 +15,12 @@ var serial = {};
     });
   };
   serial.requestPort = function() {
-    return navigator.usb.requestDevice().then(
+    const filters = [
+      { 'vendorId': 0xDEAD, 'productId': 0xBEEF },
+      { 'vendorId': 0x8086, 'productId': 0xF8A1 },
+      { 'vendorId': 0x1491, 'productId': 0x0088 },
+    ];
+    return navigator.usb.requestDevice({ 'filters': filters }).then(
       device => new serial.Port(device)
     );
   }
